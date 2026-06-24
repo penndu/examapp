@@ -18,10 +18,11 @@ function setEqual(a: string, b: string) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, phone, answers } = body as {
+    const { name, phone, answers, durationSec } = body as {
       name?: string;
       phone?: string;
       answers?: Record<string, string[]>;
+      durationSec?: number;
     };
     if (!name || !phone) {
       return NextResponse.json({ error: "缺少用户信息" }, { status: 400 });
@@ -66,6 +67,7 @@ export async function POST(req: Request) {
       passed: score >= EXAM_CONFIG.PASS_SCORE,
       submittedAt: new Date().toISOString(),
       details,
+      durationSec: typeof durationSec === "number" && durationSec >= 0 ? Math.round(durationSec) : undefined,
     };
 
     const listKey = "results";

@@ -29,6 +29,7 @@ export interface ExamResult {
   passed: boolean;
   submittedAt: string;
   details: SubmittedAnswer[];
+  durationSec?: number; // 用时（秒），可选以兼容历史数据
 }
 
 // 考试配置（倒计时、满分、通过线、次数限制）

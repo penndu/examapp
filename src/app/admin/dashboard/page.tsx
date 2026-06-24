@@ -118,6 +118,7 @@ export default function AdminDashboard() {
                     <th className="px-4 py-3 text-center">结果</th>
                     <th className="px-4 py-3 text-center">第几次</th>
                     <th className="px-4 py-3 text-right">答对题数</th>
+                    <th className="px-4 py-3 text-right">用时</th>
                     <th className="px-4 py-3 text-left">提交时间</th>
                   </tr>
                 </thead>
@@ -162,6 +163,11 @@ export default function AdminDashboard() {
                           </td>
                           <td className="px-4 py-3 text-right">
                             {correct} / {r.details.length}
+                          </td>
+                          <td className="px-4 py-3 text-right text-slate-600 font-mono">
+                            {r.durationSec != null
+                              ? `${Math.floor(r.durationSec / 60)}分${r.durationSec % 60}秒`
+                              : "—"}
                           </td>
                           <td className="px-4 py-3 text-slate-500 text-xs">
                             {new Date(r.submittedAt).toLocaleString("zh-CN")}

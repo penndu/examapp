@@ -14,7 +14,7 @@ function formatTime(s: number): string {
   return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 }
 
-type Phase = "loading" | "exam" | "submitting" | "result";
+type Phase = "loading" | "no_user" | "no_attempts" | "fs_prompt" | "exam" | "submitting" | "result";
 
 export default function ExamPage() {
   const router = useRouter();
@@ -79,7 +79,12 @@ export default function ExamPage() {
       const r = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: user.name, phone: user.phone, answers }),
+        body: JSON.stringify({
+          name: user.name,
+          phone: user.phone,
+          answers,
+          durationSec: Math.max(0, TIME_LIMIT_SECONDS - secondsLeft),
+        }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "提交失败");

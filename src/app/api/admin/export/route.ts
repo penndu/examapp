@@ -47,6 +47,7 @@ export async function GET() {
       "第几次",
       "答对题数",
       "总题数",
+      "用时(秒)",
       "提交时间",
     ];
     const correct = (r: ExamResult) => r.details.filter((d) => d.correct).length;
@@ -61,6 +62,7 @@ export async function GET() {
         cnt,
         correct(r),
         r.details.length,
+        r.durationSec != null ? r.durationSec : "",
         new Date(r.submittedAt).toLocaleString("zh-CN"),
       ]
         .map(csvEscape)
