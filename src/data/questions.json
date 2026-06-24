@@ -1,0 +1,1204 @@
+{
+  "questions": [
+    {
+      "id": "单选题-1",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统默认的文件系统类型是什么",
+      "options": [
+        {
+          "key": "A",
+          "text": "EXT3"
+        },
+        {
+          "key": "B",
+          "text": "EXT4"
+        },
+        {
+          "key": "C",
+          "text": "XFS"
+        },
+        {
+          "key": "D",
+          "text": "EXT2"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "单选题-2",
+      "type": "single",
+      "stem": "下面哪一种银河麒麟桌面操作系统的安装方式不需要自己手动划分分区",
+      "options": [
+        {
+          "key": "A",
+          "text": "测试安装"
+        },
+        {
+          "key": "B",
+          "text": "自定义安装"
+        },
+        {
+          "key": "C",
+          "text": "系统重装"
+        },
+        {
+          "key": "D",
+          "text": "全盘安装"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-3",
+      "type": "single",
+      "stem": "安装操作系统时，用户管理员密码设定最少为几位",
+      "options": [
+        {
+          "key": "A",
+          "text": "1位"
+        },
+        {
+          "key": "B",
+          "text": "不限制"
+        },
+        {
+          "key": "C",
+          "text": "12位"
+        },
+        {
+          "key": "D",
+          "text": "8位"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-4",
+      "type": "single",
+      "stem": "在银河麒麟桌面操作系统中哪个快捷键可以调出系统用户文档",
+      "options": [
+        {
+          "key": "A",
+          "text": "tab"
+        },
+        {
+          "key": "B",
+          "text": "shift"
+        },
+        {
+          "key": "C",
+          "text": "F10"
+        },
+        {
+          "key": "D",
+          "text": "F1"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-5",
+      "type": "single",
+      "stem": "麒麟操作系统备份还原的分区的挂载点是下面哪个选项",
+      "options": [
+        {
+          "key": "A",
+          "text": "/data"
+        },
+        {
+          "key": "B",
+          "text": "/backup"
+        },
+        {
+          "key": "C",
+          "text": "/xys"
+        },
+        {
+          "key": "D",
+          "text": "/opt"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "单选题-6",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统在全盘安装的情况下默认数据盘挂载点是哪个？",
+      "options": [
+        {
+          "key": "A",
+          "text": "/home"
+        },
+        {
+          "key": "B",
+          "text": "/root"
+        },
+        {
+          "key": "C",
+          "text": "/data"
+        },
+        {
+          "key": "D",
+          "text": "/opt"
+        }
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "单选题-7",
+      "type": "single",
+      "stem": "按下哪个键能终止当前运行的命令？",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ctrl+C"
+        },
+        {
+          "key": "B",
+          "text": "Ctrl+F"
+        },
+        {
+          "key": "C",
+          "text": "Ctrl+B"
+        },
+        {
+          "key": "D",
+          "text": "Ctrl+D"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-8",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统默认登录用户是",
+      "options": [
+        {
+          "key": "A",
+          "text": "root"
+        },
+        {
+          "key": "B",
+          "text": "administrator"
+        },
+        {
+          "key": "C",
+          "text": "guest"
+        },
+        {
+          "key": "D",
+          "text": "安装时创建用户"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-9",
+      "type": "single",
+      "stem": "在新创建网络链接时，若希望可以自动设置IP地址等信息，应该选择哪种方式？",
+      "options": [
+        {
+          "key": "A",
+          "text": "手动设置"
+        },
+        {
+          "key": "B",
+          "text": "DHCP"
+        },
+        {
+          "key": "C",
+          "text": "仅本地连接"
+        },
+        {
+          "key": "D",
+          "text": "与其他计算机共享"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "单选题-10",
+      "type": "single",
+      "stem": "若希望将系统还原回一天前的状态，则必须的前提条件是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "有当前系统的备份"
+        },
+        {
+          "key": "B",
+          "text": "有一天前系统的备份"
+        },
+        {
+          "key": "C",
+          "text": "有两天前系统的备份"
+        },
+        {
+          "key": "D",
+          "text": "有一天前/data目录的备份"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "单选题-11",
+      "type": "single",
+      "stem": "假如您需要查看vim包 (package)的相关信息如包的功能说明、依赖关系 ，您可以执行以下哪个命令？",
+      "options": [
+        {
+          "key": "A",
+          "text": "dpkg -s vim"
+        },
+        {
+          "key": "B",
+          "text": "dpkg -S vim"
+        },
+        {
+          "key": "C",
+          "text": "dpkg -l vim"
+        },
+        {
+          "key": "D",
+          "text": "dpkg -L vim"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-12",
+      "type": "single",
+      "stem": "为了达到使文件的所有者有读(r)和写(w)的许可，而其他用户只能进行只读访问，在设置文件的许可值时，应当设为什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "777"
+        },
+        {
+          "key": "B",
+          "text": "744"
+        },
+        {
+          "key": "C",
+          "text": "566"
+        },
+        {
+          "key": "D",
+          "text": "644"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-13",
+      "type": "single",
+      "stem": "以长格式显示当前目录下所有文件时，若文件test属性的第一部分为：drwxrw-r--，则test的文件类型及文件属主的权限是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "普通文件、读写"
+        },
+        {
+          "key": "B",
+          "text": "普通文件、读"
+        },
+        {
+          "key": "C",
+          "text": "目录文件、浏览目录修改目录下文件和进入目录"
+        },
+        {
+          "key": "D",
+          "text": "目录文件、浏览目录修改目录下文件"
+        }
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "单选题-14",
+      "type": "single",
+      "stem": "系统识别到的第二块SAS硬盘的第一个分区的标识是哪个？",
+      "options": [
+        {
+          "key": "A",
+          "text": "/dev/sdc1"
+        },
+        {
+          "key": "B",
+          "text": "/dev/sdd1"
+        },
+        {
+          "key": "C",
+          "text": "/dev/sda1"
+        },
+        {
+          "key": "D",
+          "text": "/dev/sdb1"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-15",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统终端中，从后台启动进程，应在命令的结尾加上哪个符号？",
+      "options": [
+        {
+          "key": "A",
+          "text": "符号：^"
+        },
+        {
+          "key": "B",
+          "text": "符号：*"
+        },
+        {
+          "key": "C",
+          "text": "符号：@"
+        },
+        {
+          "key": "D",
+          "text": "符号：&"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-16",
+      "type": "single",
+      "stem": "假如你需要找出 /etc/mysql/my.cnf 文件属于哪个包 (package) ，你可以执行以下哪个命令？",
+      "options": [
+        {
+          "key": "A",
+          "text": "dpkg -s /etc/mysql/my.conf"
+        },
+        {
+          "key": "B",
+          "text": "dpkg -S /etc/mysql/my.conf"
+        },
+        {
+          "key": "C",
+          "text": "dpkg -l /etc/mysql/my.conf"
+        },
+        {
+          "key": "D",
+          "text": "dpkg -L /etc/mysql/my.conf"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "单选题-17",
+      "type": "single",
+      "stem": "系统中有用户user1和user2，主组同为users组。在user1 用户目录下有一文件file1，它拥有644 的权限，如果user2 用户想修改user1 用户目录下的file1 文件，应拥有什么权限?",
+      "options": [
+        {
+          "key": "A",
+          "text": "646"
+        },
+        {
+          "key": "B",
+          "text": "746"
+        },
+        {
+          "key": "C",
+          "text": "744"
+        },
+        {
+          "key": "D",
+          "text": "664"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-18",
+      "type": "single",
+      "stem": "chattr +i file命令的执行结果是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "file文件只能使用插入模式打开；可以增加数据，但是不能修改和删除原有内容。"
+        },
+        {
+          "key": "B",
+          "text": "file文件只能使用改写模式打开；可以修改和删除原有内容。"
+        },
+        {
+          "key": "C",
+          "text": "禁止任何修改，文件file不可改动。"
+        },
+        {
+          "key": "D",
+          "text": "file文件将压缩后保存，进行读操作时会自动解压缩。"
+        }
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "单选题-19",
+      "type": "single",
+      "stem": "哪个命令用来显示系统中各个分区中inode的使用情况？",
+      "options": [
+        {
+          "key": "A",
+          "text": "free -b"
+        },
+        {
+          "key": "B",
+          "text": "du -a -c /"
+        },
+        {
+          "key": "C",
+          "text": "df -i"
+        },
+        {
+          "key": "D",
+          "text": "df -H"
+        }
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "单选题-20",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统临时目录一般存在下面哪个文件夹中？",
+      "options": [
+        {
+          "key": "A",
+          "text": "/data"
+        },
+        {
+          "key": "B",
+          "text": "/dev"
+        },
+        {
+          "key": "C",
+          "text": "/tmp"
+        },
+        {
+          "key": "D",
+          "text": "/proc"
+        }
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "单选题-21",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统文件权限一共10位长度，分成四段，第三段表示的内容是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "文件所有者所在组的权限"
+        },
+        {
+          "key": "B",
+          "text": "其他用户的权限"
+        },
+        {
+          "key": "C",
+          "text": "文件类型"
+        },
+        {
+          "key": "D",
+          "text": "文件所有者的权限"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-22",
+      "type": "single",
+      "stem": "如果执行命令 #chmod 746 file.txt，执行后file.txt文件的权限是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "--xr--rwx"
+        },
+        {
+          "key": "B",
+          "text": "rwxr--r--"
+        },
+        {
+          "key": "C",
+          "text": "rwxr--rw-"
+        },
+        {
+          "key": "D",
+          "text": "rw-r--r--"
+        }
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "单选题-23",
+      "type": "single",
+      "stem": "假如文件权限是按8进制来定义，下面哪个值代表了读和写?",
+      "options": [
+        {
+          "key": "A",
+          "text": "4"
+        },
+        {
+          "key": "B",
+          "text": "1"
+        },
+        {
+          "key": "C",
+          "text": "2"
+        },
+        {
+          "key": "D",
+          "text": "6"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-24",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统中文件名长度不得超过多少个英文字符？",
+      "options": [
+        {
+          "key": "A",
+          "text": "256"
+        },
+        {
+          "key": "B",
+          "text": "512"
+        },
+        {
+          "key": "C",
+          "text": "64"
+        },
+        {
+          "key": "D",
+          "text": "128"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-25",
+      "type": "single",
+      "stem": "以下哪组命令全部是文件查找的命令？",
+      "options": [
+        {
+          "key": "A",
+          "text": "which 、whereis 、locate、 find"
+        },
+        {
+          "key": "B",
+          "text": "rm、 tail、 find、 more"
+        },
+        {
+          "key": "C",
+          "text": "ls 、touch 、cp 、rm 、mv"
+        },
+        {
+          "key": "D",
+          "text": "head 、more、 less、 tail"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-26",
+      "type": "single",
+      "stem": "退出交互式登录状态，应键入的shell命令是什么？（）",
+      "options": [
+        {
+          "key": "A",
+          "text": "exit"
+        },
+        {
+          "key": "B",
+          "text": "quit"
+        },
+        {
+          "key": "C",
+          "text": "ESC"
+        },
+        {
+          "key": "D",
+          "text": "q"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-27",
+      "type": "single",
+      "stem": "我希望看最近执行的3个命令（不包括history）,需要用以下哪个命令？（）",
+      "options": [
+        {
+          "key": "A",
+          "text": "history 4"
+        },
+        {
+          "key": "B",
+          "text": "history -n 4"
+        },
+        {
+          "key": "C",
+          "text": "history -n 3"
+        },
+        {
+          "key": "D",
+          "text": "history  3"
+        }
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "单选题-28",
+      "type": "single",
+      "stem": "用ls -al命令列出以下的文件列表，哪个文件是符号连接文件？（）",
+      "options": [
+        {
+          "key": "A",
+          "text": "drwxr--r-- 1 kylin users 1024 4月 03 14:05 jl"
+        },
+        {
+          "key": "B",
+          "text": "lrwxr--r-- 1 kylin users 2024 7月 23 09:05 cheng &g"
+        },
+        {
+          "key": "C",
+          "text": "-rw-rw-rw- 2 kylin users 56 9月 09 11:05 hello"
+        },
+        {
+          "key": "D",
+          "text": "-rwxrwxrwx 2 kylin users 97 9月 09 14:05 check.sh"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "单选题-29",
+      "type": "single",
+      "stem": "银河麒麟桌面操作系统中，想给文件start.sh设置权限为文件所有者可读可修改可执行，组内用户为可读可执行不可修改，其他用户没有任何权限，那么应使用以下哪个命令？（）",
+      "options": [
+        {
+          "key": "A",
+          "text": "chmod start.sh 705"
+        },
+        {
+          "key": "B",
+          "text": "chmod start.sh 760"
+        },
+        {
+          "key": "C",
+          "text": "chmod start.sh 706"
+        },
+        {
+          "key": "D",
+          "text": "chmod start.sh 750"
+        }
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "单选题-30",
+      "type": "single",
+      "stem": "以下哪个命令可以对文件demo.txt排序并去重？（）",
+      "options": [
+        {
+          "key": "A",
+          "text": "uniq demo.txt |sort"
+        },
+        {
+          "key": "B",
+          "text": "sort demo.txt |uniq"
+        },
+        {
+          "key": "C",
+          "text": "uniq demo.txt"
+        },
+        {
+          "key": "D",
+          "text": "sort demo.txt"
+        }
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "多选题-1",
+      "type": "multiple",
+      "stem": "下面哪个不属于银河麒麟桌面操作系统“设置”下面的菜单（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "系统"
+        },
+        {
+          "key": "B",
+          "text": "驱动"
+        },
+        {
+          "key": "C",
+          "text": "时间语言"
+        },
+        {
+          "key": "D",
+          "text": "软件商店"
+        }
+      ],
+      "answer": "BD"
+    },
+    {
+      "id": "多选题-2",
+      "type": "multiple",
+      "stem": "以下哪些属于常见的操作系统安装介质？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "磁带"
+        },
+        {
+          "key": "B",
+          "text": "光盘"
+        },
+        {
+          "key": "C",
+          "text": "软盘"
+        },
+        {
+          "key": "D",
+          "text": "U盘"
+        }
+      ],
+      "answer": "BD"
+    },
+    {
+      "id": "多选题-3",
+      "type": "multiple",
+      "stem": "以下哪些属于银河麒麟桌面操作系统提供的系统安装方式？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "全盘安装"
+        },
+        {
+          "key": "B",
+          "text": "自定义安装"
+        },
+        {
+          "key": "C",
+          "text": "自动安装"
+        },
+        {
+          "key": "D",
+          "text": "多系统安装"
+        }
+      ],
+      "answer": "AB"
+    },
+    {
+      "id": "多选题-4",
+      "type": "multiple",
+      "stem": "若在银河麒麟桌面操作系统中打开用户手册可以使用哪种方式？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "开始菜单 -> 所有软件 -> 帮助手册"
+        },
+        {
+          "key": "B",
+          "text": "开始菜单 -> 所有软件 -> 用户手册"
+        },
+        {
+          "key": "C",
+          "text": "在桌面环境按F11键调出用户手册"
+        },
+        {
+          "key": "D",
+          "text": "在桌面环境按F1键调出用户手册"
+        }
+      ],
+      "answer": "BD"
+    },
+    {
+      "id": "多选题-5",
+      "type": "multiple",
+      "stem": "银河麒麟桌面操作系统创建用户时支持哪种用户？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "试用用户"
+        },
+        {
+          "key": "B",
+          "text": "标准用户"
+        },
+        {
+          "key": "C",
+          "text": "管理员用户"
+        },
+        {
+          "key": "D",
+          "text": "超级管理员"
+        }
+      ],
+      "answer": "BC"
+    },
+    {
+      "id": "多选题-6",
+      "type": "multiple",
+      "stem": "银河麒麟桌面操作系统默认支持的文本编辑器有？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "notepad++"
+        },
+        {
+          "key": "B",
+          "text": "记事本"
+        },
+        {
+          "key": "C",
+          "text": "Vim"
+        },
+        {
+          "key": "D",
+          "text": "文本编辑器"
+        }
+      ],
+      "answer": "CD"
+    },
+    {
+      "id": "多选题-7",
+      "type": "multiple",
+      "stem": "以下哪些属于麒麟操作系统提供的系统安装方式？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "快速安装"
+        },
+        {
+          "key": "B",
+          "text": "自定义安装"
+        },
+        {
+          "key": "C",
+          "text": "自动安装"
+        },
+        {
+          "key": "D",
+          "text": "多系统安装"
+        }
+      ],
+      "answer": "AB"
+    },
+    {
+      "id": "多选题-8",
+      "type": "multiple",
+      "stem": "麒麟操作系统创建用户时支持哪种用户？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "试用用户"
+        },
+        {
+          "key": "B",
+          "text": "标准用户"
+        },
+        {
+          "key": "C",
+          "text": "管理员用户"
+        },
+        {
+          "key": "D",
+          "text": "超级管理员"
+        }
+      ],
+      "answer": "BC"
+    },
+    {
+      "id": "多选题-9",
+      "type": "multiple",
+      "stem": "麒麟操作系统默认支持的文本编辑器有？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "notepad++"
+        },
+        {
+          "key": "B",
+          "text": "记事本"
+        },
+        {
+          "key": "C",
+          "text": "Vim"
+        },
+        {
+          "key": "D",
+          "text": "文本编辑器"
+        }
+      ],
+      "answer": "CD"
+    },
+    {
+      "id": "多选题-10",
+      "type": "multiple",
+      "stem": "关于麒麟操作系统密码强度说法正确的是？（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "高级模式的密码长度至少8位，至少包含大小写字符两种"
+        },
+        {
+          "key": "B",
+          "text": "中级模式的密码长度至少6位，至少包含大小写字符中的一种"
+        },
+        {
+          "key": "C",
+          "text": "低级模式不对用户密码进行限制"
+        },
+        {
+          "key": "D",
+          "text": "自定义模式根据需求自定义相应的密码强度策略"
+        }
+      ],
+      "answer": "CD"
+    },
+    {
+      "id": "多选题-11",
+      "type": "multiple",
+      "stem": "以下哪些是麒麟桌面操作系统的有线连接方式？(选2个)",
+      "options": [
+        {
+          "key": "A",
+          "text": "以太网DHCP方式"
+        },
+        {
+          "key": "B",
+          "text": "WIFI方式"
+        },
+        {
+          "key": "C",
+          "text": "以太网静态IP方式"
+        },
+        {
+          "key": "D",
+          "text": "蓝牙方式"
+        }
+      ],
+      "answer": "AC"
+    },
+    {
+      "id": "多选题-12",
+      "type": "multiple",
+      "stem": "Linux 变量按时效可分为哪几类？(选2个)",
+      "options": [
+        {
+          "key": "A",
+          "text": "自定义时间变量"
+        },
+        {
+          "key": "B",
+          "text": "永久变量"
+        },
+        {
+          "key": "C",
+          "text": "临时变量"
+        },
+        {
+          "key": "D",
+          "text": "阶段变量"
+        }
+      ],
+      "answer": "BC"
+    },
+    {
+      "id": "多选题-13",
+      "type": "multiple",
+      "stem": "下列哪些功能不是操作系统的主要功能?(选2个)",
+      "options": [
+        {
+          "key": "A",
+          "text": "进程管理"
+        },
+        {
+          "key": "B",
+          "text": "内存管理"
+        },
+        {
+          "key": "C",
+          "text": "为用户提供游戏"
+        },
+        {
+          "key": "D",
+          "text": "提供娱乐软件"
+        }
+      ],
+      "answer": "CD"
+    },
+    {
+      "id": "多选题-14",
+      "type": "multiple",
+      "stem": "以下哪种方式可以修改系统的时间和日期?(选2个)",
+      "options": [
+        {
+          "key": "A",
+          "text": "sudo date -s"
+        },
+        {
+          "key": "B",
+          "text": "通过“开始菜单”“设置”“时间与日期”"
+        },
+        {
+          "key": "C",
+          "text": "sudo tzselect"
+        },
+        {
+          "key": "D",
+          "text": "date -R"
+        }
+      ],
+      "answer": "AB"
+    },
+    {
+      "id": "多选题-15",
+      "type": "multiple",
+      "stem": "以下哪些是麒麟桌面操作系统的有线连接方式？(选2个)",
+      "options": [
+        {
+          "key": "A",
+          "text": "以太网DHCP方式"
+        },
+        {
+          "key": "B",
+          "text": "WIFI方式"
+        },
+        {
+          "key": "C",
+          "text": "以太网静态IP方式"
+        },
+        {
+          "key": "D",
+          "text": "蓝牙方式"
+        }
+      ],
+      "answer": "AC"
+    },
+    {
+      "id": "多选题-16",
+      "type": "multiple",
+      "stem": "以下和192.168.0.1/16为同一网段的地址是？(选2个)",
+      "options": [
+        {
+          "key": "A",
+          "text": "192.168.1.1/16"
+        },
+        {
+          "key": "B",
+          "text": "192.168.200.254/16"
+        },
+        {
+          "key": "C",
+          "text": "191.168.0.254/16"
+        },
+        {
+          "key": "D",
+          "text": "192.167.0.1/16"
+        }
+      ],
+      "answer": "AB"
+    },
+    {
+      "id": "多选题-17",
+      "type": "multiple",
+      "stem": "bash中，需要将脚本demo.sh的标准输出和标准错误输出重定向至文件demo.log，以下哪些用法是正确的？（）（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "bash demo.sh &>demo.log"
+        },
+        {
+          "key": "B",
+          "text": "bash demo.sh > & demo.log"
+        },
+        {
+          "key": "C",
+          "text": "bash demo.sh >demo.log 2>&1"
+        },
+        {
+          "key": "D",
+          "text": "bash demo.sh 2>demo.log 1>demo.log"
+        }
+      ],
+      "answer": "AC"
+    },
+    {
+      "id": "多选题-18",
+      "type": "multiple",
+      "stem": "银河麒麟桌面操作系统中，关于硬链接的描述正确的是？（）（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "可以跨文件系统"
+        },
+        {
+          "key": "B",
+          "text": "不可以跨文件系统"
+        },
+        {
+          "key": "C",
+          "text": "为链接文件创建新的i节点"
+        },
+        {
+          "key": "D",
+          "text": "链接文件的i节点与被链接文件的i节点相同"
+        }
+      ],
+      "answer": "BD"
+    },
+    {
+      "id": "多选题-19",
+      "type": "multiple",
+      "stem": "文件aaa的访问权限为rw-r--r--，现要增加所有用户的执行权限和同组用户的写权限，下列哪些命令是正确的？（）（选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "chmod a+x,g+w aaa"
+        },
+        {
+          "key": "B",
+          "text": "chmod 764 aaa"
+        },
+        {
+          "key": "C",
+          "text": "chmod 775 aaa"
+        },
+        {
+          "key": "D",
+          "text": "chmod o+x,g+w aaa"
+        }
+      ],
+      "answer": "AC"
+    },
+    {
+      "id": "多选题-20",
+      "type": "multiple",
+      "stem": "在局域网络内的某台主机用ping 命令测试网络连接时发现网络内部的主机都可以连通，而不能访问麒麟软件官网，问题可能是() （选2个）",
+      "options": [
+        {
+          "key": "A",
+          "text": "主机IP 设置有误"
+        },
+        {
+          "key": "B",
+          "text": "/etc/host文件设置有误"
+        },
+        {
+          "key": "C",
+          "text": "局域网的网关或主机的网关设置有误"
+        },
+        {
+          "key": "D",
+          "text": "局域网DNS 服务器设置有误"
+        }
+      ],
+      "answer": "CD"
+    }
+  ]
+}
