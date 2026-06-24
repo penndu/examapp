@@ -42,7 +42,7 @@ export default function ExamPage() {
         setPhase("no_attempts");
         return;
       }
-      setPhase("fs_prompt");
+      setPhase("exam");
     } catch {
       setPhase("no_user");
     }
