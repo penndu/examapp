@@ -33,7 +33,7 @@ export interface ExamResult {
 
 // 考试配置（倒计时、满分、通过线、次数限制）
 export const EXAM_CONFIG = {
-  TOTAL_MINUTES: 20,           // 限时 20 分钟
+  TOTAL_MINUTES: 60,           // 限时 60 分钟
   POINTS_PER_QUESTION: 2,      // 每题 2 分
   PASS_SCORE: 70,              // 通过线
   MAX_ATTEMPTS: 3,             // 每手机号最多 3 次

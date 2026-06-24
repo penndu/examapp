@@ -28,24 +28,25 @@ export default function ExamPage() {
   useEffect(() => {
     const raw = localStorage.getItem("exam_user");
     if (!raw) {
-      router.replace("/");
+      setPhase("no_user");
       return;
     }
     try {
-      const u = JSON.parse(raw);
-      // 已在注册时被拦截，这里再防一道
-      if ((u.attempts ?? 0) >= EXAM_CONFIG.MAX_ATTEMPTS) {
-        alert(`已用完 ${EXAM_CONFIG.MAX_ATTEMPTS} 次考试机会。`);
-        localStorage.removeItem("exam_user");
-        router.replace("/");
+      const u = JSON.parse(raw) as {
+        name: string;
+        phone: string;
+        attemptsLeft?: number;
+      };
+      setUser(u);
+      if (u.attemptsLeft !== undefined && u.attemptsLeft <= 0) {
+        setPhase("no_attempts");
         return;
       }
-      setUser(u);
-      setPhase("exam");
+      setPhase("fs_prompt");
     } catch {
-      router.replace("/");
+      setPhase("no_user");
     }
-  }, [router]);
+  }, []);
 
   const answeredCount = Object.keys(answers).filter(
     (k) => (answers[k] || []).length > 0
