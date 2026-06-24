@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { EXAM_CONFIG } from "@/lib/types";
 
 export default function Home() {
   const router = useRouter();
@@ -24,7 +25,11 @@ export default function Home() {
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "注册失败");
+      if ((data.attempts ?? 0) >= EXAM_CONFIG.MAX_ATTEMPTS) {
+        throw new Error(`该手机号已用完 ${EXAM_CONFIG.MAX_ATTEMPTS} 次考试机会。`);
+      }
       localStorage.setItem("exam_user", JSON.stringify(data));
+      localStorage.removeItem("exam_used");
       router.push("/exam");
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "未知错误";
@@ -42,13 +47,12 @@ export default function Home() {
           <h1 className="inline-block align-middle text-3xl font-bold text-white tracking-wide">
             课程在线考试
           </h1>
-          <p className="text-slate-300 mt-2">姓名 + 手机号 · 50 题 · 100 分 · 70 分通过</p>
+          <p className="text-slate-300 mt-2">
+            姓名 + 手机号 · 50 题 · 限时 {EXAM_CONFIG.TOTAL_MINUTES} 分钟 · {EXAM_CONFIG.PASS_SCORE} 分通过
+          </p>
         </div>
 
-        <form
-          onSubmit={submit}
-          className="bg-white rounded-2xl shadow-2xl p-8 space-y-5"
-        >
+        <form onSubmit={submit} className="bg-white rounded-2xl shadow-2xl p-8 space-y-5">
           <div>
             <label className="block text-sm font-medium text-slate-600 mb-1">姓名</label>
             <input
@@ -74,9 +78,7 @@ export default function Home() {
             />
           </div>
 
-          {err && (
-            <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded">{err}</div>
-          )}
+          {err && <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded">{err}</div>}
 
           <button
             type="submit"
@@ -87,7 +89,7 @@ export default function Home() {
           </button>
 
           <p className="text-xs text-slate-400 text-center pt-2">
-            每个手机号可以多次参加，系统记录每次成绩
+            每个手机号最多 {EXAM_CONFIG.MAX_ATTEMPTS} 次考试机会 · 限时 {EXAM_CONFIG.TOTAL_MINUTES} 分钟
           </p>
         </form>
       </div>

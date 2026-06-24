@@ -116,47 +116,60 @@ export default function AdminDashboard() {
                     <th className="px-4 py-3 text-left">手机号</th>
                     <th className="px-4 py-3 text-right">分数</th>
                     <th className="px-4 py-3 text-center">结果</th>
+                    <th className="px-4 py-3 text-center">第几次</th>
                     <th className="px-4 py-3 text-right">答对题数</th>
                     <th className="px-4 py-3 text-left">提交时间</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((r, i) => {
-                    const correct = r.details.filter((d) => d.correct).length;
-                    return (
-                      <tr key={i} className="border-t hover:bg-slate-50">
-                        <td className="px-4 py-3 font-medium">{r.name}</td>
-                        <td className="px-4 py-3 font-mono text-slate-600">{r.phone}</td>
-                        <td className="px-4 py-3 text-right">
-                          <span
-                            className={`font-bold ${
-                              r.passed ? "text-teal" : "text-red-500"
-                            }`}
-                          >
-                            {r.score}
-                          </span>
-                          <span className="text-slate-400"> / 100</span>
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <span
-                            className={`px-2 py-1 text-xs rounded ${
-                              r.passed
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-700"
-                            }`}
-                          >
-                            {r.passed ? "通过" : "未通过"}
-                          </span>
-                        </td>
-                        <td className="px-4 py-3 text-right">
-                          {correct} / {r.details.length}
-                        </td>
-                        <td className="px-4 py-3 text-slate-500 text-xs">
-                          {new Date(r.submittedAt).toLocaleString("zh-CN")}
-                        </td>
-                      </tr>
+                  {(() => {
+                    // 按手机号 + 提交时间排序，给每次考试标"第 N 次"
+                    const sorted = [...filtered].sort((a, b) =>
+                      a.submittedAt < b.submittedAt ? -1 : 1
                     );
-                  })}
+                    const attemptMap = new Map<string, number>();
+                    return sorted.map((r) => {
+                      const cnt = (attemptMap.get(r.phone) ?? 0) + 1;
+                      attemptMap.set(r.phone, cnt);
+                      const correct = r.details.filter((d) => d.correct).length;
+                      return (
+                        <tr key={`${r.phone}-${r.submittedAt}`} className="border-t hover:bg-slate-50">
+                          <td className="px-4 py-3 font-medium">{r.name}</td>
+                          <td className="px-4 py-3 font-mono text-slate-600">{r.phone}</td>
+                          <td className="px-4 py-3 text-right">
+                            <span
+                              className={`font-bold ${
+                                r.passed ? "text-teal" : "text-red-500"
+                              }`}
+                            >
+                              {r.score}
+                            </span>
+                            <span className="text-slate-400"> / 100</span>
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span
+                              className={`px-2 py-1 text-xs rounded ${
+                                r.passed
+                                  ? "bg-green-100 text-green-700"
+                                  : "bg-red-100 text-red-700"
+                              }`}
+                            >
+                              {r.passed ? "通过" : "未通过"}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-center text-slate-600">
+                            {cnt} / 3
+                          </td>
+                          <td className="px-4 py-3 text-right">
+                            {correct} / {r.details.length}
+                          </td>
+                          <td className="px-4 py-3 text-slate-500 text-xs">
+                            {new Date(r.submittedAt).toLocaleString("zh-CN")}
+                          </td>
+                        </tr>
+                      );
+                    });
+                  })()}
                 </tbody>
               </table>
             </div>

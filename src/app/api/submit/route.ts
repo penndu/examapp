@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getRedis } from "@/lib/redis";
 import questionsData from "@/data/questions.json";
-import type { ExamResult, SubmittedAnswer } from "@/lib/types";
+import { EXAM_CONFIG, type ExamResult, type SubmittedAnswer } from "@/lib/types";
 
 export const runtime = "nodejs";
 
@@ -10,8 +10,6 @@ const QUESTIONS = questionsData.questions as Array<{
   type: "single" | "multiple";
   answer: string;
 }>;
-const PASS_SCORE = 70;
-const POINTS_PER_QUESTION = 2;
 
 function setEqual(a: string, b: string) {
   return a.split("").sort().join("") === b.split("").sort().join("");
@@ -32,12 +30,24 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "答案数据缺失" }, { status: 400 });
     }
 
+    // 检查考试次数
+    const redis = getRedis();
+    const userKey = `user:${phone}`;
+    const user = await redis.get<{ name: string; attempts: number }>(userKey);
+    const attempts = user?.attempts ?? 0;
+    if (attempts >= EXAM_CONFIG.MAX_ATTEMPTS) {
+      return NextResponse.json(
+        { error: `每个手机号最多只能参加 ${EXAM_CONFIG.MAX_ATTEMPTS} 次考试，您已用完。` },
+        { status: 429 }
+      );
+    }
+
     let score = 0;
     const details: SubmittedAnswer[] = [];
     for (const q of QUESTIONS) {
       const selected = (answers[q.id] || []).map((s) => s.toUpperCase()).sort();
       const correct = setEqual(selected.join(""), q.answer);
-      const got = correct ? POINTS_PER_QUESTION : 0;
+      const got = correct ? EXAM_CONFIG.POINTS_PER_QUESTION : 0;
       score += got;
       details.push({
         questionId: q.id,
@@ -53,17 +63,23 @@ export async function POST(req: Request) {
       name,
       phone,
       score,
-      passed: score >= PASS_SCORE,
+      passed: score >= EXAM_CONFIG.PASS_SCORE,
       submittedAt: new Date().toISOString(),
       details,
     };
 
-    const redis = getRedis();
     const listKey = "results";
     const existing = (await redis.get<string[]>(listKey)) || [];
     const id = `${Date.now()}-${phone}`;
     await redis.set(`result:${id}`, result);
     await redis.set(listKey, [...existing, id]);
+
+    // 更新已用次数
+    await redis.set(userKey, {
+      name: user?.name ?? name,
+      phone,
+      attempts: attempts + 1,
+    });
 
     return NextResponse.json(result);
   } catch (e: unknown) {

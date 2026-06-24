@@ -33,29 +33,39 @@ export async function GET() {
     }
     results.sort((a, b) => (a.submittedAt < b.submittedAt ? 1 : -1));
 
+    // 按手机号 + 提交时间排序，标"第 N 次"
+    const sorted = [...results].sort((a, b) =>
+      a.submittedAt < b.submittedAt ? -1 : 1
+    );
+    const attemptMap = new Map<string, number>();
+
     const headers = [
       "姓名",
       "手机号",
       "分数",
       "是否通过",
+      "第几次",
       "答对题数",
       "总题数",
       "提交时间",
     ];
     const correct = (r: ExamResult) => r.details.filter((d) => d.correct).length;
-    const rows = results.map((r) =>
-      [
+    const rows = sorted.map((r) => {
+      const cnt = (attemptMap.get(r.phone) ?? 0) + 1;
+      attemptMap.set(r.phone, cnt);
+      return [
         r.name,
         r.phone,
         r.score,
         r.passed ? "通过" : "未通过",
+        cnt,
         correct(r),
         r.details.length,
         new Date(r.submittedAt).toLocaleString("zh-CN"),
       ]
         .map(csvEscape)
-        .join(",")
-    );
+        .join(",");
+    });
 
     // 加 BOM 让 Excel 正确识别 UTF-8
     const csv = "\ufeff" + [headers.join(","), ...rows].join("\n");

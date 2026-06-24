@@ -14,16 +14,20 @@ export async function POST(req: Request) {
     }
     const redis = getRedis();
     const userKey = `user:${phone}`;
-    const existing = await redis.get<{ name: string; phone: string }>(userKey);
+    const existing = await redis.get<{ name: string; phone: string; attempts?: number }>(userKey);
     if (existing) {
-      // 同一手机号更新姓名（允许改名）
+      // 同一手机号更新姓名（保留 attempts）
       const updated = { ...existing, name: String(name).trim() };
       await redis.set(userKey, updated);
-      return NextResponse.json(updated);
+      return NextResponse.json({
+        name: updated.name,
+        phone: updated.phone,
+        attempts: updated.attempts ?? 0,
+      });
     }
-    const user = { name: String(name).trim(), phone };
+    const user = { name: String(name).trim(), phone, attempts: 0 };
     await redis.set(userKey, user);
-    return NextResponse.json(user);
+    return NextResponse.json({ name: user.name, phone: user.phone, attempts: 0 });
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : "服务器错误";
     return NextResponse.json({ error: msg }, { status: 500 });

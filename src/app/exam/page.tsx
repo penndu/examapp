@@ -3,20 +3,27 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import questionsData from "@/data/questions.json";
-import type { ExamResult, Question } from "@/lib/types";
+import { EXAM_CONFIG, type ExamResult, type Question } from "@/lib/types";
 
 const QUESTIONS = questionsData.questions as Question[];
-const POINTS_PER_QUESTION = 2;
-const PASS_SCORE = 70;
+const TIME_LIMIT_SECONDS = EXAM_CONFIG.TOTAL_MINUTES * 60;
+
+function formatTime(s: number): string {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+}
 
 type Phase = "loading" | "exam" | "submitting" | "result";
 
 export default function ExamPage() {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("loading");
-  const [user, setUser] = useState<{ name: string; phone: string } | null>(null);
+  const [user, setUser] = useState<{ name: string; phone: string; attempts?: number } | null>(null);
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
   const [result, setResult] = useState<ExamResult | null>(null);
+  const [secondsLeft, setSecondsLeft] = useState(TIME_LIMIT_SECONDS);
+  const [autoSubmitted, setAutoSubmitted] = useState(false);
 
   useEffect(() => {
     const raw = localStorage.getItem("exam_user");
@@ -25,30 +32,43 @@ export default function ExamPage() {
       return;
     }
     try {
-      setUser(JSON.parse(raw));
+      const u = JSON.parse(raw);
+      // 已在注册时被拦截，这里再防一道
+      if ((u.attempts ?? 0) >= EXAM_CONFIG.MAX_ATTEMPTS) {
+        alert(`已用完 ${EXAM_CONFIG.MAX_ATTEMPTS} 次考试机会。`);
+        localStorage.removeItem("exam_user");
+        router.replace("/");
+        return;
+      }
+      setUser(u);
       setPhase("exam");
     } catch {
       router.replace("/");
     }
   }, [router]);
 
-  const totalScore = QUESTIONS.length * POINTS_PER_QUESTION;
   const answeredCount = Object.keys(answers).filter(
     (k) => (answers[k] || []).length > 0
   ).length;
 
-  const handleSelect = (qid: string, key: string, type: "single" | "multiple") => {
-    setAnswers((prev) => {
-      const cur = prev[qid] || [];
-      if (type === "single") return { ...prev, [qid]: [key] };
-      const exists = cur.includes(key);
-      return { ...prev, [qid]: exists ? cur.filter((k) => k !== key) : [...cur, key] };
-    });
-  };
+  // 倒计时：每秒减 1，到 0 自动交卷
+  useEffect(() => {
+    if (phase !== "exam") return;
+    if (secondsLeft <= 0) {
+      if (!autoSubmitted) {
+        setAutoSubmitted(true);
+        doSubmit(true);
+      }
+      return;
+    }
+    const t = setTimeout(() => setSecondsLeft((s) => s - 1), 1000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, secondsLeft]);
 
-  const handleSubmit = async () => {
+  async function doSubmit(silent = false) {
     if (!user) return;
-    if (answeredCount < QUESTIONS.length) {
+    if (!silent && answeredCount < QUESTIONS.length) {
       if (!confirm(`还有 ${QUESTIONS.length - answeredCount} 题未作答，确定要交卷吗？`)) {
         return;
       }
@@ -64,12 +84,26 @@ export default function ExamPage() {
       if (!r.ok) throw new Error(data.error || "提交失败");
       setResult(data);
       setPhase("result");
+      // 记录已用次数（前端用于"再考一次"按钮显示）
+      try {
+        const used = Number(localStorage.getItem("exam_used") || "0") + 1;
+        localStorage.setItem("exam_used", String(used));
+      } catch {}
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "提交失败";
       alert(msg);
       setPhase("exam");
     }
+  }
+
+  const handleSelect = (qid: string, key: string, type: "single" | "multiple") => {
+    setAnswers((prev) => {
+      const cur = prev[qid] || [];
+      if (type === "single") return { ...prev, [qid]: [key] };
+      const exists = cur.includes(key);
+      return { ...prev, [qid]: exists ? cur.filter((k) => k !== key) : [...cur, key] };
+    });
   };
 
   const wrongQuestions = useMemo(() => {
@@ -90,6 +124,11 @@ export default function ExamPage() {
 
   if (phase === "result" && result) {
     const correctCount = result.details.filter((d) => d.correct).length;
+    const usedAttempts = Number(
+      typeof window !== "undefined" ? localStorage.getItem("exam_used") || "0" : "0"
+    );
+    const attemptsLeft = Math.max(0, EXAM_CONFIG.MAX_ATTEMPTS - usedAttempts);
+    const totalScore = QUESTIONS.length * EXAM_CONFIG.POINTS_PER_QUESTION;
     return (
       <main className="min-h-screen bg-slate-50 py-8 px-4">
         <div className="max-w-3xl mx-auto">
@@ -112,14 +151,16 @@ export default function ExamPage() {
               答对 <strong>{correctCount}</strong> / {QUESTIONS.length} 题
             </p>
             <p className="mt-2 text-2xl font-semibold">
-              {result.passed ? "🎉 恭喜，通过！" : "❌ 未通过，差 " + (PASS_SCORE - result.score) + " 分"}
+              {result.passed
+                ? "🎉 恭喜，通过！"
+                : `❌ 未通过，差 ${EXAM_CONFIG.PASS_SCORE - result.score} 分`}
             </p>
             <p className="text-xs opacity-70 mt-2">
               {new Date(result.submittedAt).toLocaleString("zh-CN")}
             </p>
           </div>
 
-          {/* 答错清单 */}
+          {/* 答错清单 — 不显示正确答案 */}
           {wrongQuestions.length > 0 && (
             <div className="mt-6 bg-white rounded-2xl shadow p-6">
               <h2 className="text-xl font-bold text-slate-800 mb-4">
@@ -133,7 +174,7 @@ export default function ExamPage() {
                       <div className="flex items-start gap-2">
                         <span className="text-red-500 font-bold">#{i + 1}</span>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
+                          <div className="flex items-center gap-2 mb-2 flex-wrap">
                             <span
                               className={`text-xs px-2 py-0.5 rounded ${
                                 q.type === "single"
@@ -152,11 +193,8 @@ export default function ExamPage() {
                                 {d.selected.length ? d.selected.join(", ") : "未作答"}
                               </span>
                             </p>
-                            <p>
-                              <span className="text-slate-500">正确答案：</span>
-                              <span className="text-green-600 font-mono font-bold">
-                                {d.correctAnswer}
-                              </span>
+                            <p className="text-slate-500 italic text-xs">
+                              正确答案不予公布
                             </p>
                           </div>
                         </div>
@@ -169,20 +207,33 @@ export default function ExamPage() {
           )}
 
           <div className="mt-6 flex gap-3">
-            <button
-              onClick={() => {
-                setAnswers({});
-                setResult(null);
-                setPhase("exam");
-                window.scrollTo({ top: 0 });
-              }}
-              className="flex-1 py-3 bg-deep hover:bg-midnight text-white font-semibold rounded-lg transition"
-            >
-              再考一次
-            </button>
+            {attemptsLeft > 0 ? (
+              <button
+                onClick={() => {
+                  if (
+                    !confirm(`再考一次将消耗 1 次机会（剩余 ${attemptsLeft} 次），确定吗？`)
+                  )
+                    return;
+                  setAnswers({});
+                  setResult(null);
+                  setSecondsLeft(TIME_LIMIT_SECONDS);
+                  setAutoSubmitted(false);
+                  setPhase("exam");
+                  window.scrollTo({ top: 0 });
+                }}
+                className="flex-1 py-3 bg-deep hover:bg-midnight text-white font-semibold rounded-lg transition"
+              >
+                再考一次（剩余 {attemptsLeft} 次）
+              </button>
+            ) : (
+              <div className="flex-1 py-3 bg-slate-300 text-slate-500 text-center rounded-lg">
+                已用完 {EXAM_CONFIG.MAX_ATTEMPTS} 次考试机会
+              </div>
+            )}
             <button
               onClick={() => {
                 localStorage.removeItem("exam_user");
+                localStorage.removeItem("exam_used");
                 router.push("/");
               }}
               className="px-6 py-3 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-100"
@@ -197,17 +248,28 @@ export default function ExamPage() {
 
   return (
     <main className="min-h-screen bg-slate-50 pb-32">
-      {/* 顶部状态栏 */}
+      {/* 顶部状态栏：用户 + 已答 + 倒计时 */}
       <div className="sticky top-0 z-10 bg-midnight text-white shadow">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div>
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <div className="min-w-0">
             <span className="font-bold">在线考试</span>
-            <span className="text-slate-300 text-sm ml-3">
+            <span className="text-slate-300 text-sm ml-3 truncate">
               {user?.name} · {user?.phone}
             </span>
           </div>
-          <div className="text-sm">
-            已答 <span className="font-bold text-accent">{answeredCount}</span> / {QUESTIONS.length}
+          <div className="flex items-center gap-5 text-sm shrink-0">
+            <div>
+              已答 <span className="font-bold text-accent">{answeredCount}</span> /{" "}
+              {QUESTIONS.length}
+            </div>
+            <div
+              className={`font-mono text-base font-bold tabular-nums ${
+                secondsLeft <= 60 ? "text-red-400 animate-pulse" : "text-accent"
+              }`}
+              title="剩余时间"
+            >
+              ⏱ {formatTime(secondsLeft)}
+            </div>
           </div>
         </div>
       </div>
@@ -231,7 +293,7 @@ export default function ExamPage() {
                       {q.type === "single" ? "单选" : "多选"}
                     </span>
                     <span className="text-xs text-slate-500">
-                      {POINTS_PER_QUESTION} 分
+                      {EXAM_CONFIG.POINTS_PER_QUESTION} 分
                     </span>
                   </div>
                   <p className="text-slate-800 mb-3 leading-relaxed">{q.stem}</p>
@@ -267,14 +329,15 @@ export default function ExamPage() {
         })}
       </div>
 
-      {/* 底部提交栏 */}
+      {/* 底部固定栏 */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <div className="text-sm text-slate-600">
-            满分 {totalScore}，{PASS_SCORE} 分通过
+            满分 {QUESTIONS.length * EXAM_CONFIG.POINTS_PER_QUESTION}，
+            {EXAM_CONFIG.PASS_SCORE} 分通过 · 限时 {EXAM_CONFIG.TOTAL_MINUTES} 分钟
           </div>
           <button
-            onClick={handleSubmit}
+            onClick={() => doSubmit(false)}
             disabled={phase === "submitting"}
             className="px-8 py-3 bg-midnight hover:bg-deep disabled:opacity-50 text-white font-semibold rounded-lg transition"
           >
